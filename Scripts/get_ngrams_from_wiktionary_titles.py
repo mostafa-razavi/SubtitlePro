@@ -225,6 +225,58 @@ def get_english_ngrams_from_wiktioary_titles(n, json_file_out):
     with open(json_file_out, "w") as outfile:  
         json.dump(ngrams, outfile)
 
+def get_non_phrasal_verb_3grams():
+    n = 3
+    n_gram_file_path = 'C:/myProjects/SubtitlePro/Data/wiktionary_' + str(n) + 'grams.json'
+    with open(n_gram_file_path) as f:
+        wiktionary_ngrams = json.load(f) 
+    accptable_word_types = [ 'NN', 'JJ' ] 
+    #accptable_word_types = ['LS', 'TO', 'VBN', "''", 'WP', 'UH', 'VBG', 'JJ', 'VBZ', '--', 'VBP', 'NN', 'DT', 'PRP', ':', 'WP$', 'NNPS', 'PRP$', 'WDT', '(', ')', '.', ',', '``', '$', 'RB', 'RBR', 'RBS', 'VBD', 'IN', 'FW', 'RP', 'JJR', 'JJS', 'PDT', 'MD', 'VB', 'WRB', 'NNP', 'EX', 'NNS', 'SYM', 'CC', 'CD', 'POS']
+    #accptable_word_types = ['LS', 'TO', "''", 'WP', 'UH', 'JJ', '--', 'NN', 'DT', 'PRP', ':', 'WP$', 'NNPS', 'PRP$', 'WDT', '(', ')', '.', ',', '``', '$', 'RB', 'RBR', 'RBS', 'IN', 'FW', 'RP', 'JJR', 'JJS', 'PDT', 'MD', 'WRB', 'NNP', 'EX', 'NNS', 'SYM', 'CC', 'CD', 'POS']
+
+    filtered_ngrams = []
+    for item in wiktionary_ngrams:
+        pos = nltk.pos_tag(item.split())
+        first = pos[0][0]
+        second = pos[1][0]
+        third = pos[2][0]
+        first_type = pos[0][1]
+        second_type = pos[1][1]
+        third_type = pos[2][1]
+
+        if first_type[0:2] in accptable_word_types and second_type[0:2] in accptable_word_types and third_type[0:2] in accptable_word_types:
+            filtered_ngrams.append(item)
+            print(item, first_type, second_type, third_type)
+    json_file_out = 'C:/myProjects/SubtitlePro/Data/wiktionary_3grams_JJNN.json'
+    with open(json_file_out, "w") as outfile:  
+        json.dump(filtered_ngrams, outfile)
+
+def get_non_phrasal_verb_2grams():
+    n = 2
+    n_gram_file_path = 'C:/myProjects/SubtitlePro/Data/wiktionary_' + str(n) + 'grams.json'
+    with open(n_gram_file_path) as f:
+        wiktionary_ngrams = json.load(f) 
+    #accptable_word_types = [ 'NN', 'JJ'  ] 
+    #accptable_word_types = ['LS', 'TO', 'VBN', "''", 'WP', 'UH', 'VBG', 'JJ', 'VBZ', '--', 'VBP', 'NN', 'DT', 'PRP', ':', 'WP$', 'NNPS', 'PRP$', 'WDT', '(', ')', '.', ',', '``', '$', 'RB', 'RBR', 'RBS', 'VBD', 'IN', 'FW', 'RP', 'JJR', 'JJS', 'PDT', 'MD', 'VB', 'WRB', 'NNP', 'EX', 'NNS', 'SYM', 'CC', 'CD', 'POS']
+    accptable_word_types = ['LS', 'TO', "''", 'WP', 'UH', 'JJ', '--', 'NN', 'DT', 'PRP', ':', 'WP$', 'NNPS', 'PRP$', 'WDT', '(', ')', '.', ',', '``', '$', 'RB', 'RBR', 'RBS', 'IN', 'FW', 'RP', 'JJR', 'JJS', 'PDT', 'MD', 'WRB', 'NNP', 'EX', 'NNS', 'SYM', 'CC', 'CD', 'POS']
+
+    filtered_ngrams = []
+    for item in wiktionary_ngrams:
+        pos = nltk.pos_tag(item.split())
+        first = pos[0][0]
+        second = pos[1][0]
+        first_type = pos[0][1]
+        second_type = pos[1][1]
+
+        if first_type in accptable_word_types and second_type in accptable_word_types:
+        #if first_type[0:2] in accptable_word_types and second_type[0:2] in accptable_word_types:
+            filtered_ngrams.append(item)
+            print(item, first_type, second_type)
+    json_file_out = 'C:/myProjects/SubtitlePro/Data/wiktionary_2grams_AllButVB.json'
+    with open(json_file_out, "w") as outfile:  
+        json.dump(filtered_ngrams, outfile)        
+
+
 if __name__ == '__main__':
 
     #get_english_unigrams_from_wiktioary_titles(json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_unigrams.json')
@@ -236,4 +288,5 @@ if __name__ == '__main__':
     #get_english_heptagrams_from_wiktioary_titles(json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_heptagrams.json')
     #get_english_ngrams_from_wiktioary_titles(n=8, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_octagrams.json')
     #get_english_ngrams_from_wiktioary_titles(n=9, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_nonagrams.json')
-    get_english_ngrams_from_wiktioary_titles(n=10, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_decagrams.json')
+    #get_english_ngrams_from_wiktioary_titles(n=10, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_decagrams.json')
+    get_non_phrasal_verb_2grams()
