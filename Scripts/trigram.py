@@ -12,9 +12,9 @@ def get_good_trigrams_from_json(json_file_in, json_file_out, method):
     with open(json_file_in, 'rb') as fp:
         trigrams = json.load(fp)
     good_trigrams_dict = {}
+    count = 0
 
     if method == 1:
-        count = 0
         accepted_word_types = [ 'NN', 'JJ', 'CC', 'DT', 'IN', 'RB' ]
         unaccepted_words = ['i', 'na', 'wan', 'gon', 'don', 't', 'l', 'ha', 'huh', 'won', 'aren', 'air', 'oh', 'hey', 'okay', 'ok', 'fuck', 'shit', 'yeah', 'yea', 'ho', 'hi', 'good', 'hello', 'bye', 'yes', 'no', 'please', 'god', 'ya', 'thank', 'uh' ]
         unaccepted_first = ['of', 'and', 'or']
@@ -42,7 +42,14 @@ def get_good_trigrams_from_json(json_file_in, json_file_out, method):
                                             print(item, count)
                                                     
     if method == 2:
-        pass
+        with open('C:/myProjects/SubtitlePro/Data/wiktionary_3grams.json', 'rb') as fp:
+            wiktionary_trigrams = json.load(fp)
+        for item in trigrams.items():
+            if item[0] in wiktionary_trigrams:
+                good_trigrams_dict[ item[0] ] = item[1]
+                count += 1
+                print(item, count)
+
 
     with open(json_file_out, "w") as outfile:  
         json.dump(good_trigrams_dict, outfile)
@@ -108,4 +115,5 @@ if __name__ == '__main__':
 
     #get_trigrams_from_corpus('C:/myProjects/TDI/CapstoneProject/srt/Corpus/clean_corpus.txt')
     #print_trigrams_from_json("C:/myProjects/SubtitlePro/Data/good_trigrams_minfreq-10.json")
-    get_good_trigrams_from_json(json_file_in='C:/myProjects/SubtitlePro/Data/trigrams_minfreq-10.json', json_file_out='C:/myProjects/SubtitlePro/Data/good-method-1_trigrams_minfreq-10.json', method=1)
+    #get_good_trigrams_from_json(json_file_in='C:/myProjects/SubtitlePro/Data/trigrams_minfreq-10.json', json_file_out='C:/myProjects/SubtitlePro/Data/good-method-1_trigrams_minfreq-10.json', method=1)
+    get_good_trigrams_from_json(json_file_in='C:/myProjects/SubtitlePro/Data/trigrams_minfreq-10.json', json_file_out='C:/myProjects/SubtitlePro/Data/good-method-2_trigrams_minfreq-10.json', method=2)
