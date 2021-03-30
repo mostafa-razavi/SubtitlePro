@@ -220,7 +220,7 @@ def get_english_ngrams_from_wiktioary_titles(n, json_file_out):
             if is_ngram_good == True:
                 count += 1
                 print(title, count)
-                ngrams.append(''.join(words_list))
+                ngrams.append(' '.join(words_list))
 
     with open(json_file_out, "w") as outfile:  
         json.dump(ngrams, outfile)
@@ -286,7 +286,7 @@ if __name__ == '__main__':
     #get_english_pentagrams_from_wiktioary_titles(json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_pentagrams.json')
     #get_english_hexagrams_from_wiktioary_titles(json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_hexagrams.json')
     #get_english_heptagrams_from_wiktioary_titles(json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_heptagrams.json')
-    #get_english_ngrams_from_wiktioary_titles(n=8, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_octagrams.json')
-    #get_english_ngrams_from_wiktioary_titles(n=9, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_nonagrams.json')
-    #get_english_ngrams_from_wiktioary_titles(n=10, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_decagrams.json')
-    get_non_phrasal_verb_2grams()
+    get_english_ngrams_from_wiktioary_titles(n=8, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_octagrams.json')
+    get_english_ngrams_from_wiktioary_titles(n=9, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_nonagrams.json')
+    get_english_ngrams_from_wiktioary_titles(n=10, json_file_out='C:/myProjects/SubtitlePro/Data/wiktionary_decagrams.json')
+    #get_non_phrasal_verb_2grams()
