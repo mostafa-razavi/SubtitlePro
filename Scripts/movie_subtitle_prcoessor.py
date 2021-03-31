@@ -114,12 +114,7 @@ count = 0
 difficulty_top_n = []
 most_difficult_words = df_freq_diff['word']
 for index, word in most_difficult_words.iteritems():
-    if dictionary_type == 'PyDictionary':
-        #dictionary=PyDictionary()
-        #meaning = dictionary.meaning(word, disable_errors=True)
-        meaning = get_dictionary_meaning(word, dictionary_dict)
-    elif dictionary_type == 'Wiktionary':
-        meaning = get_dictionary_meaning(word, dictionary_dict)
+    meaning = get_dictionary_meaning(word, dictionary_dict)
     if meaning != None:
         count += 1
         meaningful_words[word] = meaning
